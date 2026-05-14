@@ -1,13 +1,13 @@
 package com.airtribe.ridewise.model;
 
 public class Ride {
-    private Long id;
-    private String rider;
+    private String id;
+    private Rider rider;
     private Driver driver;
     private Double distance;
     private RideStatus rideStatus;
 
-    public Ride(Long id, String rider, Driver driver, Double distance, RideStatus rideStatus) {
+    public Ride(String id, Rider rider, Driver driver, Double distance, RideStatus rideStatus) {
         this.id = id;
         this.rider = rider;
         this.driver = driver;
@@ -15,19 +15,19 @@ public class Ride {
         this.rideStatus = rideStatus;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getRider() {
+    public Rider getRider() {
         return rider;
     }
 
-    public void setRider(String rider) {
+    public void setRider(Rider rider) {
         this.rider = rider;
     }
 
