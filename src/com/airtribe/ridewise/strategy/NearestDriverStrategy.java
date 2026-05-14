@@ -5,19 +5,20 @@ import com.airtribe.ridewise.model.Rider;
 
 import java.util.List;
 
-public class NearestDriverStrategy {
+public class NearestDriverStrategy implements RideMatchingStrategy {
 
-//    public Driver findNearestDriver(Rider rider, List<Driver> drivers){
-//        drivers.stream()
-//                .min(Double::compareTo)
-//                .ifPresent(nearestDistance -> {
-//                    for (Driver driver : drivers) {
-//                        if (Math.abs(driver.getCurrentLocation() - rider.getLocation()) == nearestDistance) {
-//                            System.out.println("Nearest driver found: " + driver.getName());
-//                            return;
-//                        }
-//                    }
-//                });))
-//        return
-//    }
+    @Override
+    public Driver findDriver(Rider rider, List<Driver> availableDrivers){
+        Driver nearestDriver = null;
+        Double minDistance = Double.MAX_VALUE;
+
+        for (Driver driver : availableDrivers){
+            Double distance = Math.abs(driver.getCurrentLocation() - rider.getLocation());
+            if(distance < minDistance){
+                minDistance = distance;
+                nearestDriver = driver;
+            }
+        }
+        return nearestDriver;
+    }
 }

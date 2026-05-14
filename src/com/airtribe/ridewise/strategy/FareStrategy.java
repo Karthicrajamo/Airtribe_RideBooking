@@ -1,4 +1,7 @@
 package com.airtribe.ridewise.strategy;
 
-public class FareStrategy {
+import com.airtribe.ridewise.model.Ride;
+
+public interface FareStrategy {
+    Double calculateFare(Ride ride);
 }

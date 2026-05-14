@@ -3,11 +3,11 @@ package com.airtribe.ridewise.model;
 public class Ride {
     private Long id;
     private String rider;
-    private String driver;
+    private Driver driver;
     private Double distance;
     private RideStatus rideStatus;
 
-    public Ride(Long id, String rider, String driver, Double distance, RideStatus rideStatus) {
+    public Ride(Long id, String rider, Driver driver, Double distance, RideStatus rideStatus) {
         this.id = id;
         this.rider = rider;
         this.driver = driver;
@@ -31,11 +31,11 @@ public class Ride {
         this.rider = rider;
     }
 
-    public String getDriver() {
+    public Driver getDriver() {
         return driver;
     }
 
-    public void setDriver(String driver) {
+    public void setDriver(Driver driver) {
         this.driver = driver;
     }
 

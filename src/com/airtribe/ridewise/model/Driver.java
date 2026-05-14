@@ -5,13 +5,16 @@ public class Driver {
     private String name;
     private Double currentLocation;
     private boolean available;
-    private
+    private VehicleType vehicleType;
+    private int totalRidesCompleted;
 
-    public Driver(String id, String name, Double currentLocation, boolean available) {
+    public Driver(String id, String name, Double currentLocation, VehicleType vehicleType) {
         this.id = id;
         this.name = name;
         this.currentLocation = currentLocation;
-        this.available = available;
+        this.vehicleType = vehicleType;
+        this.available = true;
+        this.totalRidesCompleted = 0;
     }
 
     public String getId() {
@@ -44,5 +47,35 @@ public class Driver {
 
     public void setAvailable(boolean available) {
         this.available = available;
+    }
+
+    public VehicleType getVehicleType() {
+        return vehicleType;
+    }
+
+    public void setVehicleType(VehicleType vehicleType) {
+        this.vehicleType = vehicleType;
+    }
+
+    public int getTotalRidesCompleted() {
+        return totalRidesCompleted;
+    }
+
+    public void setTotalRidesCompleted(int totalRidesCompleted) {
+        this.totalRidesCompleted = totalRidesCompleted;
+    }
+
+
+
+    @Override
+    public String toString(){
+        return "Driver{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", currentLocation=" + currentLocation +
+                ", available=" + available +
+                ", vehicleType=" + vehicleType +
+                ", totalRidesCompleted=" + totalRidesCompleted +
+                '}';
     }
 }
