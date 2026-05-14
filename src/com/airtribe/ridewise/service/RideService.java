@@ -4,6 +4,7 @@ import com.airtribe.ridewise.IdGenerator;
 import com.airtribe.ridewise.exception.NoDriverAvailableException;
 import com.airtribe.ridewise.model.Driver;
 import com.airtribe.ridewise.model.Ride;
+import com.airtribe.ridewise.model.RideStatus;
 import com.airtribe.ridewise.model.Rider;
 import com.airtribe.ridewise.strategy.FareStrategy;
 import com.airtribe.ridewise.strategy.RideMatchingStrategy;
@@ -42,7 +43,16 @@ public class RideService {
         if(matchedDriver == null){
             throw new NoDriverAvailableException("No Suitable Ride found for this ride");
         }
+        String id = idGenerator.next();
+        Ride ride = new Ride(id, rider, matchedDriver,distance, RideStatus.ASSIGNED);
 
+        driverService.setAvailablity(matchedDriver.getId(),false);
 
+        rides.put(id, ride);
+
+        System.out.println("Ride assigned: "+ride.getId() +" -> Driver: "+matchedDriver.getName());
+        return ride;
     }
+
+
 }
