@@ -2,13 +2,12 @@ package com.airtribe.ridewise.service;
 
 import com.airtribe.ridewise.IdGenerator;
 import com.airtribe.ridewise.exception.NoDriverAvailableException;
-import com.airtribe.ridewise.model.Driver;
-import com.airtribe.ridewise.model.Ride;
-import com.airtribe.ridewise.model.RideStatus;
-import com.airtribe.ridewise.model.Rider;
+import com.airtribe.ridewise.model.*;
 import com.airtribe.ridewise.strategy.FareStrategy;
 import com.airtribe.ridewise.strategy.RideMatchingStrategy;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -54,5 +53,59 @@ public class RideService {
         return ride;
     }
 
+    public FareReceipt completeRide(String rideId){
+        Ride ride = rides.get(rideId);
+        if(ride == null){
+            throw new IllegalArgumentException("Ride not found");
+        }
+
+        if(ride.getRideStatus() != RideStatus.ASSIGNED){
+            throw new IllegalArgumentException("Only ASSIGNED status can be Completed. Current status: "+ride.getRideStatus());
+        }
+        Double amount = fareStrategy.calculateFare(ride);
+
+        FareReceipt fareReceipt = new FareReceipt(rideId, amount);
+        ride.setFareReceipt(fareReceipt);
+        ride.setRideStatus(RideStatus.COMPLETED);
+
+        Driver driver = ride.getDriver();
+        driverService.setAvailablity(driver.getId(),true);
+        driver.incrementRidesCompleted();
+
+        System.out.println("Ride completed: "+ride.getId() +" -> Fare: "+amount);
+        return fareReceipt;
+    }
+
+    public void cancelRide(String rideId){
+        Ride ride = rides.get(rideId);
+        if(ride == null) throw new IllegalArgumentException("Ride not found");
+
+        if(ride.getRideStatus() == RideStatus.COMPLETED){
+            throw new IllegalArgumentException("Completed Ride cannot be cancel");
+        }
+
+        if(ride.getRideStatus() == RideStatus.ASSIGNED && ride.getDriver() != null){
+            driverService.setAvailablity(ride.getDriver().getId(),true);
+        }
+        ride.setRideStatus(RideStatus.CANCELLED);
+
+        System.out.println("Ride cancelled: "+ride.getId());
+    }
+
+    public Collection<Ride> getAllRides(){
+        return Collections.unmodifiableCollection(rides.values());
+    }
+
+    public Ride getRideById(String id){
+        return rides.get(id);
+    }
+
+    public RideService withMatchingStrategy(RideMatchingStrategy newStrategy){
+        return new RideService(riderService, driverService, newStrategy, fareStrategy);
+    }
+
+    public RideService withFareStrategy(FareStrategy newFareStrategy){
+        return new RideService(riderService, driverService, rideMatchingStrategy, newFareStrategy);
+    }
 
 }
