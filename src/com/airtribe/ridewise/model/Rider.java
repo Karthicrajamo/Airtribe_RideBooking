@@ -36,4 +36,9 @@ public class Rider {
     public void setLocation(Double location) {
         this.location = location;
     }
+
+    @Override
+    public String toString(){
+        return "Rider:{ RiderId: "+id+"}";
+    }
 }

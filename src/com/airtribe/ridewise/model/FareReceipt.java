@@ -3,21 +3,21 @@ package com.airtribe.ridewise.model;
 import java.time.LocalDateTime;
 
 public class FareReceipt {
-    private Long rideId;
+    private String rideId;
     private Double amount;
     private LocalDateTime generatedAt;
 
-    public FareReceipt(Long rideId, Double amount, LocalDateTime generatedAt) {
+    public FareReceipt(String rideId, Double amount) {
         this.rideId = rideId;
         this.amount = amount;
-        this.generatedAt = generatedAt;
+        this.generatedAt = LocalDateTime.now();
     }
 
-    public Long getRideId() {
+    public String getRideId() {
         return rideId;
     }
 
-    public void setRideId(Long rideId) {
+    public void setRideId(String rideId) {
         this.rideId = rideId;
     }
 

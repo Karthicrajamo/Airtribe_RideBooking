@@ -8,10 +8,10 @@ import java.time.LocalTime;
 
 public class PeakHourFareStrategy extends DefaultFareStrategy{
 
-    private static final LocalTime MORNING_PEAK_START = LocalTime.of(7,0);
-    private static final LocalTime MORNING_PEAK_END = LocalTime.of(9,0);
+    private static final LocalTime MORNING_PEAK_START = LocalTime.of(8,0);
+    private static final LocalTime MORNING_PEAK_END = LocalTime.of(10,0);
     private static final LocalTime EVENING_PEAK_START = LocalTime.of(17,0);
-    private static final LocalTime EVENING_PEAK_END = LocalTime.of(21,0);
+    private static final LocalTime EVENING_PEAK_END = LocalTime.of(20,0);
 
     @Override
     public Double calculateFare(Ride ride){

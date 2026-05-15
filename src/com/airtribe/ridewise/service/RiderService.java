@@ -10,13 +10,12 @@ public class RiderService {
     private final Map<String, Rider> riders = new LinkedHashMap<>();
     private final IdGenerator idGenerator = new IdGenerator("R");
 
-    public Rider RegisterRiders(String name, Double location) {
+    public Rider registerRiders(String name, Double location) {
         String id = idGenerator.next();
         Rider rider = new Rider(id, name, location);
         riders.put(id,rider);
         System.out.println("Riders Registered : "+riders.keySet());
         return rider;
-
     }
 
     public Rider getRiderById(String id){

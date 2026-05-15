@@ -65,7 +65,9 @@ public class Driver {
         this.totalRidesCompleted = totalRidesCompleted;
     }
 
-
+    public void incrementRidesCompleted(){
+        this.totalRidesCompleted++;
+    }
 
     @Override
     public String toString(){
